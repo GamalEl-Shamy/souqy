@@ -11,11 +11,12 @@
     --color-sgray: #333333;
     --color-rating: #ffc908;
     --color-light: #58D68D;
-    --shadow-main: rgba(145,158,171,.2) 0px 2px 4px -1px,rgba(145,158,171,.14) 0px 4px 5px 0px,rgba(145,158,171,.12) 0px 1px 10px 0px;
+    --shadow-main: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 body{
     font-family: 'Encode Sans Expanded', sans-serif !important;
+    background-color: #F9FAFB;
 }
 
 h2 {
