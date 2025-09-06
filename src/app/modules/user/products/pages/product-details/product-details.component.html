@@ -1,4 +1,4 @@
-@if(product) {
+@if(isLoading) {
 <div class="lg:flex lg:items-center lg:h-[calc(100vh-3.5rem)] mb-10 lg:mb-0">
 
     <section class="flex flex-col lg:flex-row justify-center gap-6 mt-2 ">
@@ -180,8 +180,7 @@
 
 }
 
-@else {
-<div class="flex justify-center items-center h-screen bg-amber-400">
-    <h2 class="text-4xl font-bold">Loading.........</h2>
-</div>
+
+@else if (!isLoading) {
+<app-spinner></app-spinner>
 }

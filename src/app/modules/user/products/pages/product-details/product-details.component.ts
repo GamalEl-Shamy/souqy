@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { Product } from './../../models/product';
 import { NgClass } from '@angular/common';
+import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
 
 
 @Component({
   selector: 'app-product-details',
-  imports: [NgClass],
+  imports: [NgClass, SpinnerComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
@@ -18,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   count: number = 1;
   errorMessage: string = '';
   errorTimeout?: ReturnType<typeof setTimeout>;
+  isLoading: boolean = false
 
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly productsService = inject(ProductsService)
@@ -42,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
     this.productsService.getProductById(this.id).subscribe({
       next: (res) => {
         this.product = res.data
+        this.isLoading = true
         if (this.product) {
           this.displayImage = this.product.imageCover
         }
