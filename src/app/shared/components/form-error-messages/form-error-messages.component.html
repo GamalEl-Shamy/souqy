@@ -1,0 +1,51 @@
+@if (control?.errors && control?.touched && !control?.getError('mismatch')) {
+<div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
+    <ul class="pl-5">
+        @if (control?.getError('required')) {
+        <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Input is required.
+        </li>
+        }
+        @if (control?.getError('minlength')) {
+        <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Input must be at least 2 characters long.
+        </li>
+        }
+        @if (control?.getError('maxlength')) {
+        <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Input must not exceed 20 characters.
+        </li>
+        }
+        @if(control?.getError('email')){
+        <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Email not valid.
+        </li>
+        }
+        @if (control?.getError('pattern')) {
+        <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Input is not match.
+            <ul class="list-disc">
+                <li>At least one upper case (A-Z)</li>
+                <li>At least one lower case (a-z)</li>
+                <li>At least one digit (0-9)</li>
+                <li>At least one special character (#?!&#64;$%^&*-)</li>
+                <li>Minimum eight in length</li>
+            </ul>
+        </li>
+        }
+    </ul>
+</div>
+}
+
+@if (control?.getError('mismatch') && control?.get('rePassword')?.touched) {
+<div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
+    <ul class="pl-5">
+        <li>Password do not match.</li>
+    </ul>
+</div>
+}
