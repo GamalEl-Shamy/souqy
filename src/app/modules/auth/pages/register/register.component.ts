@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { FormErrorMessagesComponent } from "../../../../shared/components/form-error-messages/form-error-messages.component";
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -17,12 +17,13 @@ export class RegisterComponent {
   isLoading: boolean = false
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
+  private readonly fb = inject(FormBuilder)
 
-  authForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
-    rePassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)])
+  authForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+    rePassword: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]]
   }, { validators: [this.checkPasswordValidator] })
 
   checkPasswordValidator(control: AbstractControl) {

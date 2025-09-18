@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormErrorMessagesComponent } from "../../../../shared/components/form-error-messages/form-error-messages.component";
-import { FormGroup, FormControl, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
@@ -18,10 +18,11 @@ export class LoginComponent {
   isLoading: boolean = false
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
+  private readonly fb = inject(FormBuilder)
 
-  authForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
+  authForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
   })
 
 
