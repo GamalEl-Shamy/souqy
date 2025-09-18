@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormErrorMessagesComponent } from "../../../../shared/components/form-error-messages/form-error-messages.component";
 import { FormGroup, FormControl, Validators, AbstractControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -11,19 +11,26 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
 
   errorMsg: string = ''
   isLoading: boolean = false
+  authForm!: FormGroup
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
   private readonly fb = inject(FormBuilder)
 
-  authForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
-  })
+  ngOnInit(): void {
+    this.formInit()
+  }
+
+  formInit() {
+    this.authForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+    })
+  }
 
 
 

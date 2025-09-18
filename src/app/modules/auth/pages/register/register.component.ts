@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { FormErrorMessagesComponent } from "../../../../shared/components/form-error-messages/form-error-messages.component";
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { checkPasswordValidator } from '../../../../shared/helpers/password-match';
 
 @Component({
   selector: 'app-register',
@@ -11,30 +12,29 @@ import { NgClass } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   errorMsg: string = ''
   isLoading: boolean = false
+  authForm!: FormGroup
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
   private readonly fb = inject(FormBuilder)
 
-  authForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
-    rePassword: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]]
-  }, { validators: [this.checkPasswordValidator] })
-
-  checkPasswordValidator(control: AbstractControl) {
-    if (control.get('password')?.value == control.get('rePassword')?.value) {
-      return null
-    } else {
-      return {
-        mismatch: true
-      }
-    }
+  ngOnInit(): void {
+    this.formInit()
   }
+
+  formInit() {
+    this.authForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+      rePassword: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]]
+    }, { validators: [checkPasswordValidator] })
+  }
+
+
 
   getValues() {
     if (this.authForm.valid) {
