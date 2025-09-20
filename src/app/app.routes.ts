@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { AUTH_ROUTES } from './modules/auth/auth.routes';
-import { USER_ROUTES } from './modules/user/user.routes';
+import { isAuthGuard } from './core/guards/is-auth.guard';
 
 export const routes: Routes = [
     {
@@ -10,7 +8,8 @@ export const routes: Routes = [
     },
     {
         path: '',
-        loadChildren: () => import('./modules/user/user.routes').then((m) => m.USER_ROUTES)
+        loadChildren: () => import('./modules/user/user.routes').then((m) => m.USER_ROUTES),
+        canActivate: [isAuthGuard]
     },
     {
         path: '**',

@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           console.log(res);
           if (res.message == 'success') {
+            this.authService.saveToken(res.token)
             this.router.navigate(['/products'])
             this.isLoading = false
           }
