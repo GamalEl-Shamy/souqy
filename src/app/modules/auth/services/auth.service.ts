@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   loggedIn: boolean = false
 
   register(data: any): Observable<any> {
@@ -37,5 +38,12 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken()
+  }
+
+  logout() {
+    if (typeof window != 'undefined') {
+      this.router.navigate(['/login'])
+      localStorage.clear()
+    }
   }
 }

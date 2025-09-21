@@ -29,7 +29,8 @@
                 <li><a routerLink="/login" class="hover:text-sgray transition duration-500">Login</a></li>
                 <li><a routerLink="/register" class="hover:text-sgray transition duration-500">Register</a></li>
                 }@else {
-                <li><a routerLink="/logout" class="hover:text-sgray transition duration-500">Logout</a></li>
+                <li><a (click)="logout()" routerLink="/logout"
+                        class="hover:text-sgray transition duration-500">Logout</a></li>
                 }
             </ul>
         </div>

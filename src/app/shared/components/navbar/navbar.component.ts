@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../modules/auth/services/auth.service';
 
 
 @Component({
@@ -11,8 +12,15 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   @Input() authType: string = ''
   isMobile: boolean = true;
+
+  private authService = inject(AuthService)
+
   mobileToggle() {
     this.isMobile = !this.isMobile
+  }
+
+  logout() {
+    this.authService.logout()
   }
 
 }
