@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+  loggedIn: boolean = false
 
   register(data: any): Observable<any> {
     return this.http.post(environment.apiUrl + 'auth/signup', data)
@@ -21,13 +22,16 @@ export class AuthService {
   saveToken(token: string): void {
     if (typeof window != 'undefined') {
       localStorage.setItem('token', token)
+      this.loggedIn = true
     }
   }
 
   getToken(): string | null {
-    if (typeof window != 'undefined') {
+    if (typeof window != 'undefined' && this.loggedIn) {
+      this.loggedIn = false
       return localStorage.getItem('token')
     }
+    this.loggedIn = false
     return null
   }
 
