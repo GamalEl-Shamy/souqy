@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 
@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  @Input() authType: string = ''
   isMobile: boolean = true;
   mobileToggle() {
     this.isMobile = !this.isMobile

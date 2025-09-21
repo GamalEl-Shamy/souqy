@@ -15,6 +15,7 @@
         </div>
         <div [class.max-h-0]="isMobile" [class.max-h-96]="!isMobile"
             class="links overflow-hidden transition-all duration-500 ease-in-out text-[13px]  md:max-h-full md:flex md:grow justify-between">
+            @if (authType == 'user') {
             <ul class="md:flex gap-4">
                 <li><a routerLink="/home" class="hover:text-sgray transition duration-500">Home</a></li>
                 <li><a routerLink="/products" class="hover:text-sgray transition duration-500">Products</a></li>
@@ -22,10 +23,14 @@
                 <li><a routerLink="/brands" class="hover:text-sgray transition duration-500">Brands</a></li>
                 <li><a routerLink="/cart" class="hover:text-sgray transition duration-500">Cart</a></li>
             </ul>
+            }
             <ul class="md:flex gap-4">
+                @if (authType == 'auth') {
                 <li><a routerLink="/login" class="hover:text-sgray transition duration-500">Login</a></li>
                 <li><a routerLink="/register" class="hover:text-sgray transition duration-500">Register</a></li>
+                }@else {
                 <li><a routerLink="/logout" class="hover:text-sgray transition duration-500">Logout</a></li>
+                }
             </ul>
         </div>
     </div>

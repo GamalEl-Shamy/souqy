@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { isAuthGuard } from './core/guards/is-auth.guard';
+import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./modules/auth/auth.routes').then((m) => m.AUTH_ROUTES)
+        loadChildren: () => import('./modules/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+        canActivate: [isLoggedInGuard]
     },
     {
         path: '',
