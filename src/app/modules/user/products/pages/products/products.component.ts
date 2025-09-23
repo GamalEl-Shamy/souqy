@@ -1,19 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
-import { Product } from '../../models/product';
-import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
+import { ProductCardComponent } from "../../components/product-card/product-card.component";
+import { Product } from '../../models/product';
+import { ProductsService } from '../../services/products.service';
+import { CartService } from '../../../cart/services/cart.service';
 
 
 @Component({
   selector: 'app-products',
-  imports: [RouterLink, SpinnerComponent],
+  imports: [SpinnerComponent, ProductCardComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = []
   private readonly productsService = inject(ProductsService)
+  private readonly cartService = inject(CartService)
   isLoading: boolean = false;
 
   ngOnInit(): void {
@@ -29,5 +31,11 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-
+  addToCart(id: string) {
+    this.cartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res)
+      }
+    })
+  }
 }

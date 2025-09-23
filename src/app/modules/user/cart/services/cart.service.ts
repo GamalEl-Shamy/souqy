@@ -31,7 +31,7 @@ export class CartService {
     })
   }
 
-  getLoggedUser(): Observable<any> {
+  getLoggedUserCart(): Observable<any> {
     return this.http.get(environment.apiUrl + 'cart', {
       headers: {
         token: this.authService.getToken()!
