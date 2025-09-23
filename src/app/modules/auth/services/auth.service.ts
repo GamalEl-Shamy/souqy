@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { jwtDecode } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  loggedIn: boolean = false
+  // loggedIn: boolean = false
 
   register(data: any): Observable<any> {
     return this.http.post(environment.apiUrl + 'auth/signup', data)
@@ -20,19 +21,27 @@ export class AuthService {
     return this.http.post(environment.apiUrl + 'auth/signin', data)
   }
 
+  decodeToken() {
+    try {
+      const decoded = jwtDecode(this.getToken()!);
+    } catch (error) {
+      this.logout()
+    }
+  }
+
   saveToken(token: string): void {
     if (typeof window != 'undefined') {
       localStorage.setItem('token', token)
-      this.loggedIn = true
+      // this.loggedIn = true
     }
   }
 
   getToken(): string | null {
-    if (typeof window != 'undefined' && this.loggedIn) {
-      this.loggedIn = false
+    if (typeof window != 'undefined') {
+      // this.loggedIn = false
       return localStorage.getItem('token')
     }
-    this.loggedIn = false
+    // this.loggedIn = false
     return null
   }
 
