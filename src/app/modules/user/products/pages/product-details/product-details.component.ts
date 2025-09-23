@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from './../../models/product';
 import { NgClass } from '@angular/common';
 import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
+import { CartService } from '../../../cart/services/cart.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
 
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly productsService = inject(ProductsService)
+  private readonly cartService = inject(CartService)
 
   ngOnInit(): void {
     this.getId()
@@ -87,4 +89,12 @@ export class ProductDetailsComponent implements OnInit {
     }, 5000);
   }
 
+  addToCart(id: string) {
+    this.cartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+
+      }
+    })
+  }
 }
