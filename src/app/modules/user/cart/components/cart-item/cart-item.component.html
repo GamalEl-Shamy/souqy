@@ -1,0 +1,32 @@
+<div class="flex items-center gap-6 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+
+    <div class="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
+        <img [src]="product.product.imageCover" [alt]="product.product.title" class="w-full h-full object-cover">
+    </div>
+
+    <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold text-gray-900">{{product.product.title}}</h2>
+            <span class="text-md font-medium text-blue-600 mt-1 block">Price: {{product.price}} EGP</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button (click)="onRemoveItem()" class="text-red-500 hover:text-red-700 transition cursor-pointer"
+                title="Remove Item">
+                <i class="fa fa-trash text-lg"></i>
+                Remove
+            </button>
+            <div class="flex items-center gap-2">
+                <button (click)="onChangeCount(product.count + 1)"
+                    class="bg-blue-500 text-white w-8 h-8 cursor-pointer rounded-full flex items-center justify-center text-lg font-bold hover:bg-blue-600 transition focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    +
+                </button>
+                <span class="px-2 text-lg font-medium">{{product.count}}</span>
+                <button (click)="onChangeCount(product.count - 1)"
+                    class="bg-gray-200 text-gray-800 w-8 h-8 cursor-pointer rounded-full flex items-center justify-center text-lg font-bold hover:bg-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-300/50">
+                    -
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

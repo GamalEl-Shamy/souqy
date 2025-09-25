@@ -5,6 +5,7 @@ import { Product } from './../../models/product';
 import { NgClass } from '@angular/common';
 import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
 import { CartService } from '../../../cart/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ProductDetailsComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly productsService = inject(ProductsService)
   private readonly cartService = inject(CartService)
+  private readonly toaster = inject(ToastrService)
 
   ngOnInit(): void {
     this.getId()
@@ -92,8 +94,9 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(id: string) {
     this.cartService.addProductToCart(id).subscribe({
       next: (res) => {
-        console.log(res);
-
+        if (res.status == 'success') {
+          this.toaster.success(res.message)
+        }
       }
     })
   }

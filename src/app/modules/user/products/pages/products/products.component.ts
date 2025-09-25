@@ -4,6 +4,7 @@ import { ProductCardComponent } from "../../components/product-card/product-card
 import { Product } from '../../models/product';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../../cart/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = []
   private readonly productsService = inject(ProductsService)
   private readonly cartService = inject(CartService)
+  private readonly toastr = inject(ToastrService)
   isLoading: boolean = false;
 
   ngOnInit(): void {
@@ -35,6 +37,9 @@ export class ProductsComponent implements OnInit {
     this.cartService.addProductToCart(id).subscribe({
       next: (res) => {
         console.log(res)
+        if (res.status == 'success') {
+          this.toastr.success(res.message);
+        }
       }
     })
   }

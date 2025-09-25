@@ -1,0 +1,57 @@
+@if (isLoaded) {
+@if (cartDetails.numOfCartItems !=0 ) {
+<section class="bg-gray-50 rounded-2xl shadow-xl p-8  mx-auto my-12">
+
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-200">
+        <h1 class="text-3xl font-bold text-gray-800">Shopping Cart</h1>
+        <p class="text-lg text-gray-600">
+            Total Cart Price:
+            <span class="font-bold text-blue-600">{{cartDetails.data.totalCartPrice}}</span>
+            EGP
+        </p>
+    </div>
+
+    <div class="space-y-3">
+        @for (product of cartDetails.data.products; track $index) {
+        <div class="gap-6">
+            <app-cart-item (changeCount)="updateQuantity($event.id, $event.count)" (removeItem)="removeItem($event)"
+                [product]="product"></app-cart-item>
+        </div>
+        }
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:justify-between items-center mt-12 pt-6 border-t border-gray-200 gap-4">
+        <button routerLink="/products"
+            class="w-full sm:w-auto bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition cursor-pointer">
+            Continue Shopping
+        </button>
+        <div class="flex gap-5">
+            <button (click)="clearCart()"
+                class="w-full sm:w-auto bg-red-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-red-600 transition cursor-pointer">
+                Clear Cart
+            </button>
+            <button
+                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:from-blue-700 hover:to-blue-600 transition cursor-pointer">
+                Check Out
+                <span class="ml-2">{{cartDetails.data.totalCartPrice}}</span>
+            </button>
+        </div>
+    </div>
+</section>
+}
+@else {
+<div class="flex flex-col items-center justify-center py-20 text-center">
+    <i class="fa-solid fa-cart-shopping text-6xl text-gray-400 mb-6"></i>
+    <h2 class="text-3xl font-bold text-gray-700 mb-2">Your cart is empty.</h2>
+    <p class="text-gray-500 mb-6">Add some products to get started!</p>
+    <button routerLink="/products"
+        class="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition cursor-pointer">
+        Continue Shopping
+    </button>
+</div>
+}
+}
+
+@else {
+<app-spinner></app-spinner>
+}
