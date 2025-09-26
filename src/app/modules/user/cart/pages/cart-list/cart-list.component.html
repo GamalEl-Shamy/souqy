@@ -30,7 +30,7 @@
                 class="w-full sm:w-auto bg-red-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-red-600 transition cursor-pointer">
                 Clear Cart
             </button>
-            <button
+            <button [routerLink]="['/address', cartDetails.cartId]"
                 class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:from-blue-700 hover:to-blue-600 transition cursor-pointer">
                 Check Out
                 <span class="ml-2">{{cartDetails.data.totalCartPrice}}</span>

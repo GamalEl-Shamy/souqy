@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { UserLayoutComponent } from "../../layouts/user-layout/user-layout.component";
 import { PRODUCTS_ROUTES } from "./products/products.routes";
 import { CART_ROUTES } from "./cart/cart.routes";
+import { ORDER_ROUTES } from "./orders/orders.routes";
 
 
 export const USER_ROUTES: Routes = [
@@ -9,7 +10,8 @@ export const USER_ROUTES: Routes = [
         path: '', component: UserLayoutComponent,
         children: [
             ...PRODUCTS_ROUTES,
-            ...CART_ROUTES
+            ...CART_ROUTES,
+            ...ORDER_ROUTES
         ]
     }
 ]
