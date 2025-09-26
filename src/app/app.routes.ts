@@ -5,13 +5,13 @@ import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 export const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./modules/auth/auth.routes').then((m) => m.AUTH_ROUTES),
-        canActivate: [isLoggedInGuard]
+        loadChildren: () => import('./modules/user/user.routes').then((m) => m.USER_ROUTES),
+        canActivate: [isAuthGuard]
     },
     {
         path: '',
-        loadChildren: () => import('./modules/user/user.routes').then((m) => m.USER_ROUTES),
-        canActivate: [isAuthGuard]
+        loadChildren: () => import('./modules/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+        canActivate: [isLoggedInGuard]
     },
     {
         path: '**',

@@ -3,12 +3,14 @@ import { UserLayoutComponent } from "../../layouts/user-layout/user-layout.compo
 import { PRODUCTS_ROUTES } from "./products/products.routes";
 import { CART_ROUTES } from "./cart/cart.routes";
 import { ORDER_ROUTES } from "./orders/orders.routes";
+import { HOME_ROUTES } from "./home/home.routes";
 
 
 export const USER_ROUTES: Routes = [
     {
         path: '', component: UserLayoutComponent,
         children: [
+            ...HOME_ROUTES,
             ...PRODUCTS_ROUTES,
             ...CART_ROUTES,
             ...ORDER_ROUTES
