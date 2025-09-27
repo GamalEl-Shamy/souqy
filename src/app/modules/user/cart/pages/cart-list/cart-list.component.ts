@@ -9,13 +9,12 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-list',
-  imports: [CartItemComponent, SpinnerComponent, RouterLink],
+  imports: [CartItemComponent, RouterLink],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.scss'
 })
 export class CartListComponent implements OnInit {
 
-  isLoaded: boolean = false
   cartDetails: Cart = {} as Cart
   private readonly cartService = inject(CartService)
   private readonly toaster = inject(ToastrService)
@@ -28,7 +27,6 @@ export class CartListComponent implements OnInit {
     this.cartService.getLoggedUserCart().subscribe({
       next: (res) => {
         this.cartDetails = res
-        this.isLoaded = true
       }
     })
   }
