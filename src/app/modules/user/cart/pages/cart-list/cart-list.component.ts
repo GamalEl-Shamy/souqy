@@ -1,11 +1,9 @@
-import { Product } from './../../../products/models/product';
 import { Component, inject, OnInit } from '@angular/core';
-import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
+import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartItemComponent } from "../../components/cart-item/cart-item.component";
 import { Cart } from '../../models/cart.interface';
 import { CartService } from '../../services/cart.service';
-import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-list',
@@ -37,6 +35,7 @@ export class CartListComponent implements OnInit {
         if (res.status == 'success') {
           this.toaster.warning('Product deleted!')
           this.cartDetails = res
+          this.cartService.cartCounter.next(res.numOfCartItems)
         }
       }
     })
@@ -46,6 +45,7 @@ export class CartListComponent implements OnInit {
     this.cartService.updateQuantity(productId, count).subscribe({
       next: (res) => {
         this.cartDetails = res
+        this.cartService.cartCounter.next(res.numOfCartItems)
       }
     })
   }
@@ -56,6 +56,7 @@ export class CartListComponent implements OnInit {
         if (res.message == 'success') {
           this.toaster.warning('Shopping cart cleared successfully!')
           this.loadCartItems()
+          this.cartService.cartCounter.next(0)
         }
       }
     })

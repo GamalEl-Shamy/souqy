@@ -35,6 +35,8 @@ export class ProductsComponent implements OnInit {
       next: (res) => {
         console.log(res)
         if (res.status == 'success') {
+          // this.cartService.cartCounter = res.data.numOfCartItems
+          this.cartService.cartCounter.next(res.numOfCartItems)
           this.toastr.success(res.message);
         }
       }

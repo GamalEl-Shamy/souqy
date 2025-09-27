@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment.development';
 import { AuthService } from '../../../auth/services/auth.service';
 
@@ -8,6 +8,8 @@ import { AuthService } from '../../../auth/services/auth.service';
   providedIn: 'root'
 })
 export class CartService {
+
+  cartCounter: BehaviorSubject<number> = new BehaviorSubject<number>(0)
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
