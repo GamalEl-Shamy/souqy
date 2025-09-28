@@ -1,6 +1,6 @@
+import { CategoryService } from './../../../categories/services/category.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.interface';
 
 @Component({
@@ -19,7 +19,7 @@ export class CategorySliderComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.categoryService.getCategories().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res.data
       }
