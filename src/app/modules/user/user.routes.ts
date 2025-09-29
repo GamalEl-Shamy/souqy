@@ -6,6 +6,7 @@ import { ORDER_ROUTES } from "./orders/orders.routes";
 import { HOME_ROUTES } from "./home/home.routes";
 import { CATEGORIES_ROUTES } from "./categories/categories.routes";
 import { BRANDS_ROUTES } from "./barnds/brands.routes";
+import { WISHLIST_ROUTES } from "./wishlist/wishlist.routes";
 
 
 export const USER_ROUTES: Routes = [
@@ -17,7 +18,8 @@ export const USER_ROUTES: Routes = [
             ...CART_ROUTES,
             ...ORDER_ROUTES,
             ...CATEGORIES_ROUTES,
-            ...BRANDS_ROUTES
+            ...BRANDS_ROUTES,
+            ...WISHLIST_ROUTES
         ]
     }
 ]

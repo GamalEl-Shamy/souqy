@@ -91,7 +91,7 @@
                             <span class="">Add To Cart</span>
                         </button>
 
-                        <button class="w-12 h-12 border border-amber-600 text-amber-600 hover:bg-amber-50 rounded-full cursor-pointer flex items-center justify-center transition duration-300
+                        <button (click)="addToWishlist(product._id)" class="w-12 h-12 border border-amber-600 text-amber-600 hover:bg-amber-50 rounded-full cursor-pointer flex items-center justify-center transition duration-300
                             relative z-10 group">
                             <i class="fa-regular fa-heart"></i>
                             <i
@@ -178,9 +178,4 @@
 
 </div>
 
-}
-
-
-@else if (!isLoading) {
-<app-spinner></app-spinner>
 }

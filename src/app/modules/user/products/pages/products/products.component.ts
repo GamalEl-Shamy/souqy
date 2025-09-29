@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../cart/services/cart.service';
+import { Daum, Wishlist } from '../../../wishlist/models/wishlist.interface';
+import { WishlistService } from '../../../wishlist/services/wishlist.service';
 import { ProductCardComponent } from "../../components/product-card/product-card.component";
 import { Product } from '../../models/product';
 import { ProductsService } from '../../services/products.service';
@@ -14,8 +16,10 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = []
+
   private readonly productsService = inject(ProductsService)
   private readonly cartService = inject(CartService)
+  private readonly wishlistService = inject(WishlistService)
   private readonly toastr = inject(ToastrService)
 
   ngOnInit(): void {
@@ -26,6 +30,7 @@ export class ProductsComponent implements OnInit {
     this.productsService.getAllProducts().subscribe({
       next: (res) => {
         this.products = res.data
+
       }
     })
   }
@@ -38,6 +43,18 @@ export class ProductsComponent implements OnInit {
           // this.cartService.cartCounter = res.data.numOfCartItems
           this.cartService.cartCounter.next(res.numOfCartItems)
           this.toastr.success(res.message);
+        }
+      }
+    })
+  }
+
+  addToWishlist(id: string) {
+    this.wishlistService.addProductToWishlist(id).subscribe({
+      next: (res) => {
+        if (res.status == 'success') {
+          // this.wishlistService.wishlistCounter = res.count
+          this.wishlistService.wishlistCounter.next(res.data.length)
+          this.toastr.success(res.message)
         }
       }
     })

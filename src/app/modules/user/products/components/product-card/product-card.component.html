@@ -1,5 +1,5 @@
 <div
-    class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-500 overflow-hidden flex flex-col group border border-transparent hover:border-amber-600">
+    class="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-500 overflow-hidden flex flex-col group border border-transparent hover:border-amber-600">
     <a [routerLink]="['/product-details/',product.slug ,product._id]" class="cursor-pointer ">
         <div class="relative">
             <img [src]="product.imageCover" [alt]="product.title"
@@ -37,6 +37,10 @@
             <i class="fa-solid fa-cart-plus"></i>
         </button>
     </div>
-
+    <div>
+        <button (click)="onAddToWishlist()" class="cursor-pointer">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+    </div>
 
 </div>

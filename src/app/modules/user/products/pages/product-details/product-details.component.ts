@@ -6,11 +6,12 @@ import { NgClass } from '@angular/common';
 import { SpinnerComponent } from "../../../../../shared/components/spinner/spinner.component";
 import { CartService } from '../../../cart/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { WishlistService } from '../../../wishlist/services/wishlist.service';
 
 
 @Component({
   selector: 'app-product-details',
-  imports: [NgClass, SpinnerComponent],
+  imports: [NgClass],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
@@ -26,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly productsService = inject(ProductsService)
   private readonly cartService = inject(CartService)
+  private readonly wishlistService = inject(WishlistService)
   private readonly toaster = inject(ToastrService)
 
   ngOnInit(): void {
@@ -93,6 +95,16 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(id: string) {
     this.cartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        if (res.status == 'success') {
+          this.toaster.success(res.message)
+        }
+      }
+    })
+  }
+
+  addToWishlist(id: string) {
+    this.wishlistService.addProductToWishlist(id).subscribe({
       next: (res) => {
         if (res.status == 'success') {
           this.toaster.success(res.message)

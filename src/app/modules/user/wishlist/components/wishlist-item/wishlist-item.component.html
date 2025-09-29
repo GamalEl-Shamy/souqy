@@ -1,0 +1,46 @@
+<div class=" bg-white/80 backdrop-blur-md rounded-2xl shadow-md hover:shadow-2xl 
+               overflow-hidden border border-gray-100 hover:border-amber-400 
+               transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+
+
+    <div class="relative h-64 ">
+        <img [src]="product.imageCover" [alt]="product.title"
+            class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110" />
+
+        <button (click)="onRemoveFromWishlist()" class="absolute z-20 top-3 right-3 p-2 bg-red-600/90 text-white rounded-full shadow-md 
+                   hover:bg-red-700 transition-colors cursor-pointer peer" title="Remove Item">
+            <i class="fa-solid fa-trash "></i>
+        </button>
+        <div
+            class="absolute z-10 top-7 right-7 bg-red-400/80 w-1 h-1  rounded-full peer-hover:scale-[300] transition duration-700 ease-in-out origin-center">
+        </div>
+    </div>
+
+
+    <div class="p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-2 truncate" title="{{ product.title }}">
+            {{ product.title }}
+        </h3>
+
+        <div class="flex items-center justify-between mb-5">
+            <span class="text-2xl font-extrabold text-amber-600">{{ product.price }} EGP</span>
+            <div class="flex items-center text-yellow-500">
+                <i class="fa-solid fa-star"></i>
+                <span class="ml-1 text-gray-700 font-medium">{{ product.ratingsAverage }}</span>
+            </div>
+        </div>
+
+
+        <div class="flex space-x-3">
+            <button [routerLink]="['/product-details/',product.slug,product._id]" class="flex-1 bg-gray-800 text-white py-2 rounded-lg font-semibold 
+                     hover:bg-gray-900 transition-colors flex items-center justify-center cursor-pointer">
+                Product Details
+            </button>
+            <button (click)="onAddToCart()" class="flex-1 bg-amber-500 text-white py-2 rounded-lg font-semibold 
+                     hover:bg-amber-600 transition-colors cursor-pointer">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+
+</div>
