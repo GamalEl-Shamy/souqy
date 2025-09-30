@@ -1,4 +1,4 @@
-<nav class="bg-nav text-white fixed top-0 left-0 w-full z-50 bg-amber-500">
+<!-- <nav class="bg-nav text-white fixed top-0 left-0 w-full z-50 bg-amber-500">
     <div class="max-w-screen-xl px-5 py-2 md:flex items-center justify-between">
         <div class="logo flex justify-between items-center md:grow">
             <a routerLink="/" class=" w-fit">
@@ -50,6 +50,94 @@
                 <li>
                     <a (click)="logout()" routerLink="/logout"
                         class="hover:text-sgray transition duration-500">Logout</a>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav> -->
+
+
+
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-md transition-all duration-500">
+    <div class="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between">
+
+        <div class="flex items-center justify-between w-full md:w-auto">
+            <a routerLink="/" class="flex items-center gap-2">
+                <h2
+                    class="text-2xl font-extrabold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+                    Souqy
+                </h2>
+            </a>
+
+            <button (click)="mobileToggle()"
+                class="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition-all duration-300">
+                @if (isMobile) {
+                <i class="fa-solid fa-bars text-lg"></i>
+                } @else {
+                <i class="fa-solid fa-x text-lg"></i>
+                }
+            </button>
+        </div>
+
+        <div [class.max-h-0]="isMobile" [class.max-h-96]="!isMobile"
+            class="links overflow-hidden md:overflow-visible transition-all duration-500 ease-in-out md:flex md:items-center md:gap-10 md:max-h-full w-full md:w-auto">
+
+            @if (authType == 'user') {
+            <ul class="flex flex-col md:flex-row gap-4 mt-4 md:mt-0 text-gray-700 font-medium">
+                <li><a routerLinkActive="text-amber-600" routerLink="/home"
+                        class="hover:text-amber-600 transition">Home</a></li>
+                <li><a routerLinkActive="text-amber-600" routerLink="/products"
+                        class="hover:text-amber-600 transition">Products</a></li>
+                <li><a routerLinkActive="text-amber-600" routerLink="/categories"
+                        class="hover:text-amber-600 transition">Categories</a></li>
+                <li><a routerLinkActive="text-amber-600" routerLink="/brands"
+                        class="hover:text-amber-600 transition">Brands</a></li>
+            </ul>
+            }
+
+            <ul class="flex flex-col md:flex-row gap-4 mt-4 md:mt-0 items-start md:items-center">
+                @if (authType == 'auth') {
+                <li>
+                    <a routerLink="/login"
+                        class="px-4 py-2 rounded-lg border border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white transition">
+                        Login
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/register"
+                        class="px-4 py-2 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition">
+                        Register
+                    </a>
+                </li>
+                } @else {
+                <li class="relative">
+                    <a routerLink="/wishlist"
+                        class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fa-regular fa-heart text-red-500"></i>
+                        <span>Wishlist</span>
+                        <div
+                            class="absolute -top-1 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full shadow">
+                            {{ wishlistCounter }}
+                        </div>
+                    </a>
+                </li>
+                <li class="relative">
+                    <a routerLink="/cart"
+                        class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fa-solid fa-cart-shopping text-emerald-600"></i>
+                        <span>Cart</span>
+                        <div
+                            class="absolute -top-1 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full shadow">
+                            {{ cartCounter }}
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="logout()" routerLink="/logout"
+                        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
+                        Logout
+                    </a>
                 </li>
                 }
             </ul>

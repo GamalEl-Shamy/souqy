@@ -1,14 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../modules/auth/services/auth.service';
 import { CartService } from '../../../modules/user/cart/services/cart.service';
 import { WishlistService } from '../../../modules/user/wishlist/services/wishlist.service';
-import { timeStamp } from 'console';
 
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
