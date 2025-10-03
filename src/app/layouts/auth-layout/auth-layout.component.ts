@@ -1,7 +1,7 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
-
 
 @Component({
   selector: 'app-auth-layout',
@@ -10,5 +10,5 @@ import { NavbarComponent } from "../../shared/components/navbar/navbar.component
   styleUrl: './auth-layout.component.scss'
 })
 export class AuthLayoutComponent {
-
+  isLoading: boolean = true
 }

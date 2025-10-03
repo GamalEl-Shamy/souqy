@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch(), withInterceptors([authHeaderInterceptor, loadingInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authHeaderInterceptor])), // loadingInterceptor
     provideAnimations(), // required animations providers
     provideToastr(), // Toastr providers
     importProvidersFrom(NgxSpinnerModule)

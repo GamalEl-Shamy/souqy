@@ -55,4 +55,16 @@ export class AuthService {
       localStorage.clear()
     }
   }
+
+  submitVerifyEmail(data: object): Observable<any> {
+    return this.http.post(environment.apiUrl + `auth/forgotPasswords`, data)
+  }
+
+  submitVerifyCode(data: object): Observable<any> {
+    return this.http.post(environment.apiUrl + `auth/verifyResetCode`, data)
+  }
+
+  submitResetPassword(data: object): Observable<any> {
+    return this.http.put(environment.apiUrl + `auth/resetPassword`, data)
+  }
 }

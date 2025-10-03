@@ -1,43 +1,92 @@
-<section class="h-[calc(100vh-3.5rem)] flex justify-center items-center">
-    <div class=" p-4 border border-gray-200 ">
-        <h1 class="text-2xl font-bold text-center mb-3">Login</h1>
-        <form [formGroup]="authForm" (ngSubmit)="getValues()">
-
-            <div class="mb-5">
-                <label for="email" class="block">Email</label>
-                <input formControlName="email" type="email" id="email" class="border border-gray-300 w-3xl p-2">
-
-                <app-form-error-messages [control]="authForm.get('email')"></app-form-error-messages>
-            </div>
-
-            <div class="mb-5">
-                <label for="password" class="block">Password</label>
-                <input formControlName="password" type="password" id="password"
-                    class="border border-gray-300 w-3xl  p-2">
-
-                <app-form-error-messages [control]="authForm.get('password')"></app-form-error-messages>
-
-            </div>
-
-            <button [ngClass]="{
-                'bg-green-500':!isLoading,
-                'cursor-pointer':!isLoading,
-                'bg-gray-500':isLoading,
-                'cursor-no-drop':isLoading
-            }" [disabled]="isLoading" class=" rounded px-3 py-3 w-full flex items-center justify-center">
-                @if (!isLoading) {
-                Login
-                }@else {
-                <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin">
-                </div>
-                }
-            </button>
-
-            @if (errorMsg) {
-            <div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
-                <span>{{errorMsg}}</span>
-            </div>
-            }
-        </form>
+<div class="max-w-md md:max-w-lg mx-auto mt-10 p-6 border border-gray200 rounded-2xl shadow-lg bg-fff">
+    <div class="text-center mb-6">
+        <h1 class="text-3xl font-bold text-main">Welcome Back</h1>
+        <p class="text-gray700/80 font-sans">Login to continue</p>
     </div>
-</section>
+
+    <form [formGroup]="authForm" (ngSubmit)="getValues()" class="space-y-5">
+        @if (errorMsg) {
+        <div class="bg-red100 my-3 py-3 px-4 rounded-lg text-red500 text-sm border border-red500 text-center">
+            <span>{{errorMsg}}</span>
+        </div>
+        }
+
+        <div>
+            <label for="email" class="block text-sm font-semibold text-gray700 mb-2">Email</label>
+
+            @let emailControl = authForm.get('email')?.touched && authForm.get('email')?.errors;
+            <input formControlName="email" [class]="{ 
+                'bg-red100': emailControl,
+                'border-red500': emailControl,
+                }" type="email" id="email" [class.] class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="gamal@gmail.com">
+
+            <app-form-error-messages [control]="authForm.get('email')"></app-form-error-messages>
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-semibold text-gray700 mb-2">Password</label>
+
+            @let passwordControl = authForm.get('password')?.touched && authForm.get('password')?.getError('required');
+            <div class="relative">
+                <input formControlName="password" [class]="{ 
+                'bg-red100': passwordControl,
+                'border-red500': passwordControl,
+                }" [type]="eyeToggle ? 'text' : 'password'" id="password" class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="••••••••">
+
+                @if (eyeToggle) {
+                <button type="button" (click)="togglePassword()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('password')?.value != "") {
+                    <i class="fa-solid fa-eye-slash"></i>
+                    }
+                </button>
+                }
+                @else {
+                <button type="button" (click)="togglePassword()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('password')?.value != "") {
+                    <i class="fa-solid fa-eye"></i>
+                    }
+                </button>
+                }
+            </div>
+
+            <app-form-error-messages [control]="authForm.get('password')" [passState]="false"></app-form-error-messages>
+        </div>
+
+        <div class="text-sm text-gray600 mt-4 mb-1 text-end">
+
+            <a routerLink="/forgot-password" class="text-gray hover:underline font-medium cursor-pointer ">
+                Forgot password?
+            </a>
+        </div>
+
+        <button [ngClass]="{
+        'bg-main hover:bg-main/80': !isLoading,
+        'cursor-pointer': !isLoading,
+        'bg-disabled': isLoading,
+        'cursor-not-allowed': isLoading
+      }" [disabled]="isLoading"
+            class="text-white font-semibold rounded-lg px-4 py-3 w-full flex items-center justify-center transition duration-300 shadow-md">
+
+            @if (!isLoading) {
+            Login
+            } @else {
+            <div class="w-5 h-5 border-2 border-fff border-t-transparent rounded-full animate-spin mr-3"></div>
+            <span>Logging in...</span>
+            }
+        </button>
+
+        <div class="text-sm text-gray600 mt-4 mb-1 text-center">
+            <p class="">
+                New user?
+                <a routerLink="/register" class="text-main hover:underline font-medium cursor-pointer">Create new
+                    account</a>
+            </p>
+        </div>
+    </form>
+</div>

@@ -3,19 +3,19 @@ import { FormErrorMessagesComponent } from "../../../../shared/components/form-e
 import { FormGroup, FormControl, Validators, AbstractControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormErrorMessagesComponent, NgClass],
+  imports: [ReactiveFormsModule, FormErrorMessagesComponent, NgClass, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
 
-
   errorMsg: string = ''
   isLoading: boolean = false
+  eyeToggle: boolean = false
   authForm!: FormGroup
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
@@ -28,18 +28,15 @@ export class LoginComponent implements OnInit {
   formInit() {
     this.authForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+      password: ['', [Validators.required]],
     })
   }
-
-
 
   getValues() {
     if (this.authForm.valid) {
       this.isLoading = true
       this.authService.login(this.authForm.value).subscribe({
         next: (res) => {
-          console.log(res);
           if (res.message == 'success') {
             this.authService.saveToken(res.token)
             this.router.navigate(['/products'])
@@ -47,9 +44,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
-          console.log(err);
           this.errorMsg = err.error.message
-          console.log(this.errorMsg);
           this.isLoading = false
 
         }
@@ -59,4 +54,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  togglePassword() {
+    this.eyeToggle = !this.eyeToggle
+  }
 }

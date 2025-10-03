@@ -1,57 +1,128 @@
-<section class="h-[calc(100vh-3.5rem)] flex justify-center items-center">
-    <div class=" p-4 border border-gray-200 ">
-        <h1 class="text-2xl font-bold text-center mb-3">Register</h1>
-        <form [formGroup]="authForm" (ngSubmit)="getValues()">
-            <div class="mb-5">
-                <label for="name" class="block">Name</label>
-                <input formControlName="name" type="text" id="name" class="border border-gray-300 w-3xl  p-2">
+<div class="max-w-md md:max-w-lg mx-auto mt-10 p-6 border border-gray200 rounded-2xl shadow-lg bg-fff">
+    <h1 class="text-3xl font-bold text-center text-main mb-6">Create account</h1>
+    <form [formGroup]="authForm" (ngSubmit)="getValues()">
+        <div class="mb-5">
+            <label for="name" class="block text-sm font-semibold text-gray700 mb-1">Name</label>
 
-                <app-form-error-messages [control]="authForm.get('name')"></app-form-error-messages>
-            </div>
+            @let nameControl = authForm.get('name')?.touched && authForm.get('name')?.errors;
+            <input formControlName="name" [class]="{ 
+                'bg-red100': nameControl,
+                'border-red500': nameControl,
+                }" type="text" id="name" class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="Gamal El-Shamy">
 
-            <div class="mb-5">
-                <label for="email" class="block">Email</label>
-                <input formControlName="email" type="email" id="email" class="border border-gray-300 w-3xl p-2">
+            <app-form-error-messages [control]="authForm.get('name')"></app-form-error-messages>
+        </div>
 
-                <app-form-error-messages [control]="authForm.get('email')"></app-form-error-messages>
-            </div>
+        <div class="mb-5">
+            <label for="email" class="block text-sm font-semibold text-gray700 mb-1">Email</label>
 
-            <div class="mb-5">
-                <label for="password" class="block">Password</label>
-                <input formControlName="password" type="password" id="password"
-                    class="border border-gray-300 w-3xl  p-2">
+            @let emailControl = authForm.get('email')?.touched && authForm.get('email')?.errors;
+            <input formControlName="email" [class]="{ 
+                'bg-red100': emailControl,
+                'border-red500': emailControl,
+                }" type="email" id="email" class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="gamal@gmail.com">
 
-                <app-form-error-messages [control]="authForm.get('password')"></app-form-error-messages>
+            <app-form-error-messages [control]="authForm.get('email')"></app-form-error-messages>
+        </div>
 
-            </div>
+        <div class="mb-5">
+            <label for="password" class="block text-sm font-semibold text-gray700 mb-1">Password</label>
+            <div class="relative">
 
-            <div class="mb-5">
-                <label for="rePassword" class="block">rePassword</label>
-                <input formControlName="rePassword" type="password" id="rePassword"
-                    class="border border-gray-300 w-3xl  p-2">
-
-                <app-form-error-messages [control]="authForm"></app-form-error-messages>
-            </div>
-
-            <button [ngClass]="{
-                'bg-green-500':!isLoading,
-                'cursor-pointer':!isLoading,
-                'bg-gray-500':isLoading,
-                'cursor-no-drop':isLoading
-            }" [disabled]="isLoading" class=" rounded px-3 py-3 w-full flex items-center justify-center">
-                @if (!isLoading) {
-                Register
-                }@else {
-                <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin">
-                </div>
+                @let passwordControl = authForm.get('password')?.touched && authForm.get('password')?.errors;
+                <input formControlName="password" [class]="{ 
+                'bg-red100': passwordControl,
+                'border-red500': passwordControl,
+                }" [type]="eyeToggleP ? 'text' : 'password'" id="password" class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="••••••••">
+                @if (eyeToggleP) {
+                <button type="button" (click)="togglePasswordP()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('password')?.value != "") {
+                    <i class="fa-solid fa-eye-slash"></i>
+                    }
+                </button>
                 }
-            </button>
-
-            @if (errorMsg) {
-            <div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
-                <span>{{errorMsg}}</span>
+                @else {
+                <button type="button" (click)="togglePasswordP()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('password')?.value != "") {
+                    <i class="fa-solid fa-eye"></i>
+                    }
+                </button>
+                }
             </div>
+
+            <app-form-error-messages [control]="authForm.get('password')" [passState]="true"></app-form-error-messages>
+
+        </div>
+
+        <div class="mb-5">
+            <label for="rePassword" class="block text-sm font-semibold text-gray700 mb-1">Confirm Password</label>
+            <div class="relative">
+
+                @let rePasswordControl = authForm.get('rePassword')?.touched && authForm.getError('mismatch');
+                <input formControlName="rePassword" [class]="{ 
+                'bg-red100': rePasswordControl,
+                'border-red500': rePasswordControl,
+                }" [type]="eyeToggleR ? 'text' : 'password'" id="rePassword" class="w-full px-4 py-3 border border-gray300 rounded-lg shadow-sm 
+               focus:outline-none  focus:ring-2 focus:ring-main 
+               transition duration-300 placeholder-gray500" placeholder="••••••••">
+
+                @if (eyeToggleR) {
+                <button type="button" (click)="togglePasswordR()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('rePassword')?.value != "") {
+                    <i class="fa-solid fa-eye-slash"></i>
+                    }
+                </button>
+                }
+                @else {
+                <button type="button" (click)="togglePasswordR()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray500 text[15px] cursor-pointer">
+                    @if (authForm.get('rePassword')?.value != "") {
+                    <i class="fa-solid fa-eye"></i>
+                    }
+                </button>
+                }
+            </div>
+
+            <app-form-error-messages [control]="authForm"></app-form-error-messages>
+        </div>
+
+        <div class="flex items-center justify-between text-sm text-gray600 mt-4 mb-1">
+            <p class="">
+                Already user?
+                <a routerLink="/login" class="text-main hover:underline font-medium cursor-pointer">Login</a>
+            </p>
+        </div>
+
+        <button [ngClass]="{
+        'bg-main hover:bg-main/80': !isLoading,
+        'cursor-pointer': !isLoading,
+        'bg-disabled': isLoading,
+        'cursor-not-allowed': isLoading
+      }" [disabled]="isLoading"
+            class="text-fff font-semibold rounded-lg px-4 py-3 w-full flex items-center justify-center transition duration-300 shadow-md">
+
+            @if (!isLoading) {
+            Register
+            } @else {
+            <div class="w-5 h-5 border-2 border-fff border-t-transparent rounded-full animate-spin mr-3"></div>
+            <span>Registering...</span>
             }
-        </form>
-    </div>
-</section>
+        </button>
+
+        @if (errorMsg) {
+        <div class="bg-red100 my-3 py-3 px-3 rounded-lg border border-red500 text-red700 text-center">
+            <span>{{errorMsg}}</span>
+        </div>
+        }
+
+    </form>
+</div>

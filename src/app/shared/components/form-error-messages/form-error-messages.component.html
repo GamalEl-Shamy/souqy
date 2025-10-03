@@ -1,41 +1,37 @@
 @if (control?.errors && control?.touched && !control?.getError('mismatch')) {
-<div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
-    <ul class="pl-5">
+<div>
+    <ul class=" mt-2">
         @if (control?.getError('required')) {
-        <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Input is required.
+        <li class=" text-red700 pl-3">
+            <span class="font-medium">Input is required.</span>
         </li>
         }
         @if (control?.getError('minlength')) {
-        <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Input must be at least 2 characters long.
+        <li class=" text-red700 pl-3">
+            <span>Input must be at least {{control?.getError('minlength')?.requiredLength}} characters long.</span>
+            <p>You entered <span class="text-main">{{control?.getError('minlength')?.actualLength}}</span> character</p>
         </li>
         }
         @if (control?.getError('maxlength')) {
-        <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Input must not exceed 20 characters.
+        <li class=" text-red700 pl-3">
+            <span>Input must not exceed 20 characters.</span>
         </li>
         }
         @if(control?.getError('email')){
-        <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Email not valid.
+        <li class=" text-red700 pl-3">
+            <span>Email not valid.</span>
         </li>
         }
-        @if (control?.getError('pattern')) {
-        <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            Input is not match.
-            <ul class="list-disc">
-                <li>At least one upper case (A-Z)</li>
-                <li>At least one lower case (a-z)</li>
-                <li>At least one digit (0-9)</li>
-                <li>At least one special character (#?!&#64;$%^&*-)</li>
-                <li>Minimum eight in length</li>
-            </ul>
+        @if (control?.getError('pattern') && passState) {
+        <li class=" text-red700 pl-3 ">
+            <span class="text-000">Password must be </span>
+            <p [class.text-main]="control?.value.length>=8">at least 8
+                characters long.</p>
+            <p [class.text-main]="hasUppercase">an uppercase letter.</p>
+            <p [class.text-main]="hasLowercase">a lowercase letter.</p>
+            <p [class.text-main]="hasNumber">a number.</p>
+            <p [class.text-main]="hasSpecialCharacter">a special character.</p>
+
         </li>
         }
     </ul>
@@ -43,9 +39,9 @@
 }
 
 @if (control?.getError('mismatch') && control?.get('rePassword')?.touched) {
-<div class="bg-red-100 my-3 py-3 px-3 rounded-lg text-red-700">
-    <ul class="pl-5">
-        <li>Password do not match.</li>
+<div class="text-red700">
+    <ul class="pl-5 mt-2">
+        <li>Password not match.</li>
     </ul>
 </div>
 }

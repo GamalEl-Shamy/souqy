@@ -6,6 +6,23 @@
 /* You can add global styles to this file, and also import other style files */
 @theme {
     --color-main: #01A49E;
+    --color-disabled: #7FA5A3;
+    --color-fff: #ffffff ;
+    --color-000: #000000  ;
+
+    --color-gray200: #e5e7eb;
+    --color-gray300: #d1d5dc;
+    --color-gray500: #6a7282;
+    --color-gray600: #4a5565;
+    --color-gray700: #364153;
+    
+    --color-red100: #ffe2e2;
+    --color-red200: #fecaca;
+    --color-red500: #fb2c36;
+    --color-red700: #B91C1C;
+
+
+
     --color-secondary: #EB4227;
     --color-light: #E2F1F0;
     --shadow-main: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -24,6 +41,17 @@ h2 {
   background-color: #f59e0b; 
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-clear-button {
+  display: none;
 }
 
 
